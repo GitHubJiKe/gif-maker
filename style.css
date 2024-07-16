@@ -61,7 +61,7 @@ button {
 }
 
 #speed::after {
-    content: 'speed:' attr(data-speed);
+    content: 'delay:' attr(data-speed);
     position: relative;
     left: 55px;
 }
