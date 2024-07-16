@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gif Maker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="gif.js"></script>
+    <script src="gif.worker.js"></script>
+</head>
+
+<body>
+    <div class="grid">
+        <div class="item">
+            <div class="item-content">
+                <img src="a.svg" alt="1">
+            </div>
+        </div>
+        <div class="item">
+            <div class="item-content">
+                <img src="b.svg" alt="1">
+            </div>
+        </div>
+        <div class="item">
+            <div class="item-content">
+                <img src="c.svg" alt="1">
+            </div>
+        </div>
+        <div class="item">
+            <div class="item-content">
+                <img src="d.svg" alt="1">
+            </div>
+        </div>
+        <div class="item">
+            <div class="item-content">
+                <img src="e.svg" alt="1">
+            </div>
+        </div>
+        <div class="item">
+            <div class="item-content">
+                <img src="f.svg" alt="1">
+            </div>
+        </div>
+        <div class="item">
+            <div class="item-content">
+                <img src="g.svg" alt="1">
+            </div>
+        </div>
+        <div class="item">
+            <div class="item-content">
+                <img src="h.svg" alt="1">
+            </div>
+        </div>
+        <div class="item">
+            <div class="item-content">
+                <img src="i.svg" alt="1">
+            </div>
+        </div>
+    </div>
+    <div class="pane">
+        <h1>Gif Maker</h1>
+        <button id="start">Create Gif</button>
+        <input type="range" name="speed" id="speed" min="1" max="100" value="5" data-speed="5">
+        <div>
+            <label for="width">width:</label><input type="number" value="800" name="width" id="width">
+            <label for="height">height:</label><input type="number" value="800" name="height" id="height">
+        </div>
+        <button id="reset">Reset Images</button>
+        <img id="result" alt="Gif" src="gif.gif" width="400" height="400">
+        <button id="download">Download Gif</button>
+        <input type="file" name="upload" id="upload" style="display: none;" accept="image/*" multiple>
+    </div>
+    <script type="module" src="./app.mjs"></script>
+</body>
+
+</html>
