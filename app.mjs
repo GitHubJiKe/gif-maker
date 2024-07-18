@@ -29,17 +29,19 @@ clearEle.addEventListener("click", () => {
 
 function setImg(file, imgEle) {
     const reader = new FileReader();
-    reader.onload = function (e) {
+    reader.addEventListener("load", function (e) {
         const imageUrl = e.target.result;
+        console.log("imageUrl", imageUrl);
         const img = new Image();
 
-        img.onload = function () {
+        img.addEventListener("load", function () {
+            console.log("img.src", img.src);
             imgEle.src = img.src;
             imgEle.classList.replace("img-small", "img");
-        };
+        });
 
         img.src = imageUrl;
-    };
+    });
     reader.readAsDataURL(file);
 }
 
