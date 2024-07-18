@@ -42,6 +42,21 @@ function setImg(file, imgEle) {
 
         img.src = imageUrl;
     });
+    reader.onerror = function (e) {
+        console.error("FileReader onerror event:", e);
+    };
+
+    reader.onprogress = function (e) {
+        console.log("FileReader onprogress event:", e);
+    };
+
+    reader.onloadstart = function (e) {
+        console.log("FileReader onloadstart event:", e);
+    };
+
+    reader.onloadend = function (e) {
+        console.log("FileReader onloadend event:", e);
+    };
     reader.readAsDataURL(file);
 }
 
