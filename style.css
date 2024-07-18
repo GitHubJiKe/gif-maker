@@ -13,6 +13,7 @@ body {
     flex: 4;
     gap: 12px;
     padding-right: 12px;
+    overflow-y: auto;
 }
 
 .item {
@@ -30,26 +31,31 @@ body {
     height: 100%;
 }
 
-.item-content>img {
+.img {
     width: 240px;
     height: 240px;
     cursor: pointer;
 }
+.img-small {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
 
-.item-content>img:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+.item-content:hover {
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .pane {
     flex: 1;
-    background-color: aqua;
+    background-color: rgba(0, 0, 0, 0.2);
     padding: 12px;
     text-align: center;
 }
 
 button {
     width: 100%;
-    height: 40px;
+    height: 30px;
 }
 
 #speed {
@@ -61,15 +67,15 @@ button {
 }
 
 #speed::after {
-    content: 'delay:' attr(data-speed);
+    content: "delay:" attr(data-speed);
     position: relative;
     left: 55px;
 }
 
+#clear,
 #reset {
     margin: 12px 0;
 }
-
 #result {
     margin: 12px;
     display: inline-block;
@@ -94,4 +100,15 @@ h1 {
     animation: spin 4s linear infinite;
     scale: 0.4;
     border: none !important;
+}
+
+p {
+    margin: 4px;
+}
+
+.forkme {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
 }

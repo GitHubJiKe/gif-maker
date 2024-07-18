@@ -1,77 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gif Maker</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="gif.js"></script>
+        <script src="gif.worker.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gif Maker</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="gif.js"></script>
-    <script src="gif.worker.js"></script>
-</head>
-
-<body>
-    <div class="grid">
-        <div class="item">
-            <div class="item-content">
-                <img src="a.svg" alt="1">
+    <body>
+        <a href="https://github.com/GitHubJiKe/gif-maker" target="_blank">
+            <img src="forkme.png" alt="github" class="forkme" />
+        </a>
+        <div class="grid" title="it's dragable">
+            <div class="item">
+                <div class="item-content">
+                    <img class="img" src="a.svg" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-content">
+                    <img class="img" src="b.svg" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-content">
+                    <img class="img" src="c.svg" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-content">
+                    <img class="img" src="d.svg" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-content">
+                    <img class="img" src="e.svg" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-content">
+                    <img class="img" src="f.svg" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-content">
+                    <img class="img" src="g.svg" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-content">
+                    <img class="img" src="h.svg" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-content">
+                    <img class="img" src="i.svg" />
+                </div>
             </div>
         </div>
-        <div class="item">
-            <div class="item-content">
-                <img src="b.svg" alt="1">
-            </div>
+        <div class="pane">
+            <h1>
+                <p style="color: white">Gif Maker</p>
+                <p style="font-size: 0.8rem; color: gray">
+                    you'd better keep all you images same size
+                </p>
+            </h1>
+            <button id="start">Create Gif</button>
+            <input
+                type="range"
+                name="speed"
+                id="speed"
+                min="1"
+                max="100"
+                value="5"
+                data-speed="5"
+            />
+            <button id="clear">Clear Images</button>
+            <img id="result" alt="Gif" src="gif.gif" width="400" height="400" />
+            <button id="download">Download Gif</button>
+            <input
+                type="file"
+                name="upload"
+                id="upload"
+                style="display: none"
+                accept="image/*"
+                multiple
+            />
         </div>
-        <div class="item">
-            <div class="item-content">
-                <img src="c.svg" alt="1">
-            </div>
-        </div>
-        <div class="item">
-            <div class="item-content">
-                <img src="d.svg" alt="1">
-            </div>
-        </div>
-        <div class="item">
-            <div class="item-content">
-                <img src="e.svg" alt="1">
-            </div>
-        </div>
-        <div class="item">
-            <div class="item-content">
-                <img src="f.svg" alt="1">
-            </div>
-        </div>
-        <div class="item">
-            <div class="item-content">
-                <img src="g.svg" alt="1">
-            </div>
-        </div>
-        <div class="item">
-            <div class="item-content">
-                <img src="h.svg" alt="1">
-            </div>
-        </div>
-        <div class="item">
-            <div class="item-content">
-                <img src="i.svg" alt="1">
-            </div>
-        </div>
-    </div>
-    <div class="pane">
-        <h1>Gif Maker</h1>
-        <button id="start">Create Gif</button>
-        <input type="range" name="speed" id="speed" min="1" max="100" value="5" data-speed="5">
-        <div>
-            <label for="width">width:</label><input type="number" value="800" name="width" id="width">
-            <label for="height">height:</label><input type="number" value="800" name="height" id="height">
-        </div>
-        <button id="reset">Reset Images</button>
-        <img id="result" alt="Gif" src="gif.gif" width="400" height="400">
-        <button id="download">Download Gif</button>
-        <input type="file" name="upload" id="upload" style="display: none;" accept="image/*" multiple>
-    </div>
-    <script type="module" src="./app.mjs"></script>
-</body>
-
+        <script type="module" src="./app.mjs"></script>
+    </body>
 </html>

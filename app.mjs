@@ -2,84 +2,95 @@ const defaultOpt = {
     quality: 1,
     width: 800,
     height: 800,
-    background: '#fff',
-    transparent: '#fff'
-}
-const imgs = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-const speedEle = document.querySelector('#speed');
-const resultEle = document.querySelector('#result');
-const startEle = document.querySelector('#start');
-const resetEle = document.querySelector('#reset');
-const downloadEle = document.querySelector('#download');
-const uploadEle = document.querySelector('#upload');
-const widthEle = document.querySelector('#width');
-const heightEle = document.querySelector('#height');
-const items = Array.from(document.querySelectorAll('.item')).map(item => item.querySelector('img'));
+    background: "#fff",
+    transparent: "#fff",
+};
+const container = document.querySelector(".grid");
+const sortable = new Sortable(container, {
+    animation: 150,
+    ghostClass: "sortable-ghost",
+});
+const speedEle = document.querySelector("#speed");
+const resultEle = document.querySelector("#result");
+const startEle = document.querySelector("#start");
+const clearEle = document.querySelector("#clear");
+const downloadEle = document.querySelector("#download");
+const uploadEle = document.querySelector("#upload");
+const items = Array.from(document.querySelectorAll(".item"))
+    .map((item) => item.querySelector("img"))
+    .filter((item) => !!item.src);
 
-resetEle.addEventListener('click', () => {
+clearEle.addEventListener("click", () => {
     items.forEach((img, idx) => {
-        img.src = `${imgs[idx]}.svg`
-    })
-})
+        img.src = `upload-svgrepo-com.svg`;
+        img.classList.replace("img", "img-small");
+    });
+});
 
-uploadEle.addEventListener('change', () => {
+uploadEle.addEventListener("change", () => {
     const files = uploadEle.files;
     if (files.length > 9) {
-        alert('最多只能上传9个图片');
-        uploadEle.value = ''; // 清空文件选择
+        alert("最多只能上传9个图片");
+        uploadEle.value = ""; // 清空文件选择
         return;
     }
 
-    const clickitem = Number(uploadEle.getAttribute('data-clickitem'));
+    const clickitem = Number(uploadEle.getAttribute("data-clickitem"));
     if (files.length === 1) {
-        items[clickitem].setAttribute('src', URL.createObjectURL(files[0]));
+        items[clickitem].setAttribute("src", URL.createObjectURL(files[0]));
+        items[clickitem].classList.replace("img-small", "img");
         return;
     }
 
     Array.from(files).forEach((file, idx) => {
-        items[idx + clickitem].setAttribute('src', URL.createObjectURL(file))
-    })
-
-})
+        items[idx + clickitem].setAttribute("src", URL.createObjectURL(file));
+        items[idx + clickitem].classList.replace("img-small", "img");
+    });
+});
 
 items.forEach((ele, idx) => {
-    ele.addEventListener('click', () => {
-        uploadEle.setAttribute('data-clickitem', idx)
-        uploadEle.click()
-    })
-})
+    ele.addEventListener("click", () => {
+        uploadEle.setAttribute("data-clickitem", idx);
+        uploadEle.click();
+    });
+});
 function createGif(options) {
     const opt = {
         ...defaultOpt,
-        ...options
-    }
+        ...options,
+    };
     const gif = new GIF({
         ...opt,
         workers: items.length,
     });
-    const delay = Number(speedEle.value) * 100
-    items.forEach(item => {
-        gif.addFrame(item, { delay });
-    })
+    const delay = Number(speedEle.value) * 100;
 
-    gif.on('finished', finishCreate);
+    items.forEach((item) => {
+        if (item.src.startsWith("blob:")) {
+            console.log(item.src);
+            gif.addFrame(item, { delay });
+        }
+    });
+
+    gif.on("finished", finishCreate);
 
     gif.render();
 }
 
 function startCreate() {
-    resultEle.src = 'loading.svg';
-    resultEle.classList.add('loading')
+    resultEle.src = "loading.svg";
+    resultEle.classList.add("loading");
 }
 
 function finishCreate(blob) {
-    resultEle.classList.remove('loading')
-    resultEle.src = URL.createObjectURL(blob)
+    resultEle.classList.remove("loading");
+    resultEle.src = URL.createObjectURL(blob);
 }
 
-function getOpt() {
-    const width = widthEle.value;
-    const height = heightEle.value;
+function getOpt(img) {
+    const width = img.naturalWidth;
+    const height = img.naturalHeight;
+    console.log(width, height);
     const opt = {};
 
     if (width && width !== 800) {
@@ -93,30 +104,26 @@ function getOpt() {
     return opt;
 }
 
+startEle.addEventListener("click", () => {
+    startCreate();
 
-startEle.addEventListener('click', () => {
-    startCreate()
-    createGif(getOpt())
-})
+    createGif(getOpt(items[0]));
+});
 
-
-downloadEle.addEventListener('click', () => {
-    const url = document.querySelector('#result').src;
+downloadEle.addEventListener("click", () => {
+    const url = document.querySelector("#result").src;
     if (!url) {
-        return alert('Create Gif First')
+        return alert("Create Gif First");
     }
-    const link = document.createElement('a')
-    link.href = url
-    link.setAttribute('download', 'gif.gif')
-    link.style.display = 'none'
-    document.body.appendChild(link)
-    link.click()
-    link.remove()
-})
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "gif.gif");
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+});
 
-
-
-
-speedEle.addEventListener('input', () => {
-    speedEle.setAttribute('data-speed', speedEle.value);
-})
+speedEle.addEventListener("input", () => {
+    speedEle.setAttribute("data-speed", speedEle.value);
+});
