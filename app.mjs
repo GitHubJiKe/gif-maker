@@ -27,6 +27,22 @@ clearEle.addEventListener("click", () => {
     });
 });
 
+function setImg(file, imgEle) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const imageUrl = e.target.result;
+        const img = new Image();
+
+        img.onload = function () {
+            imgEle.src = img.src;
+            imgEle.classList.replace("img-small", "img");
+        };
+
+        img.src = imageUrl;
+    };
+    reader.readAsDataURL(file);
+}
+
 uploadEle.addEventListener("change", () => {
     const files = uploadEle.files;
     if (files.length > 9) {
@@ -37,14 +53,12 @@ uploadEle.addEventListener("change", () => {
 
     const clickitem = Number(uploadEle.getAttribute("data-clickitem"));
     if (files.length === 1) {
-        items[clickitem].setAttribute("src", URL.createObjectURL(files[0]));
-        items[clickitem].classList.replace("img-small", "img");
+        setImg(files[0], items[clickitem]);
         return;
     }
 
     Array.from(files).forEach((file, idx) => {
-        items[idx + clickitem].setAttribute("src", URL.createObjectURL(file));
-        items[idx + clickitem].classList.replace("img-small", "img");
+        setImg(file, items[idx + clickitem]);
     });
 });
 
@@ -66,7 +80,7 @@ function createGif(options) {
     const delay = Number(speedEle.value) * 100;
 
     items.forEach((item) => {
-        if (item.src.startsWith("blob:")) {
+        if (item.classList.contains("img")) {
             console.log(item.src);
             gif.addFrame(item, { delay });
         }
